@@ -70,7 +70,7 @@ def main():
 
 
 
-#r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=1001,randolph,arlington,va&key=AIzaSyAgcXQF_OYqmBAOV_xQgeYNkBV0jse1Ajc')
+#r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=1001,randolph,arlington,va&key=')
 #r.status_code
 ## OKAY | ZERO_RESULTS | INVALID_REQUEST
 #r.json()['status']
