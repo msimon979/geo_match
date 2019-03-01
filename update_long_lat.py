@@ -41,8 +41,8 @@ def retrieve_rows(records):
 
 def geo_api(address_list):
 	for address in address_list:
-		# r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyAgcXQF_OYqmBAOV_xQgeYNkBV0jse1Ajc' % address)
-		print('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyAgcXQF_OYqmBAOV_xQgeYNkBV0jse1Ajc' % address)
+		# r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=' % address)
+		print('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=' % address)
 
 
 def main():
