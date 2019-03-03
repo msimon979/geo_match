@@ -37,7 +37,8 @@ def retrieve_rows(records):
 			second_line, 
 			city_name, 
 			state_name, 
-			case when postal_code is null or postal_code = '' then '' else substring(postal_code,1,5) end
+			case when postal_code is null or postal_code = '' then '' 
+			else substring(postal_code,1,5) end
 		FROM public.cms_nppes_provider_address 
 		WHERE 
 			latitude is NULL AND longitude is 
@@ -62,8 +63,8 @@ def instant_update(npi, atc, r):
 	conn.commit()
 
 def bulk_update():
-	s= open("data/bulk_success.csv","w")
-	f= open("data/bulk_fail.csv","w")
+	s = open("data/bulk_success.csv","w")
+	f = open("data/bulk_fail.csv","w")
 	for result in bulk_list:
 		if result[-1] == 200:
 			s.write('%s,%s,%s,%s\r\n' % (result[0], 
@@ -71,8 +72,6 @@ def bulk_update():
 										 result[2]['lat'], 
 										 result[2]['lng']))
 		else:
-			print(result)
-			print(result[0])
 			f.write('%s,%s\r\n' % (result[0],
 								   result[1]))
 
@@ -80,8 +79,9 @@ def bulk_update():
 	f.close()
 	
 	subprocess.call('./load_bulk.sh')
-	subprocess.call(['rm','data/bulk_success.csv'])
-	subprocess.call(['rm','data/bulk_fail.csv'])
+	# Uncomment if you want to delete data files
+	# subprocess.call(['rm','data/bulk_success.csv'])
+	# subprocess.call(['rm','data/bulk_fail.csv'])
 
 
 def set_checker(npi, atc):

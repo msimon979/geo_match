@@ -1,3 +1,6 @@
+\set ON_ERROR_STOP on
+
+\echo 'Starting ref_cms_nppes'
 DROP TABLE IF EXISTS ref_cms_nppes;
 CREATE TABLE "ref_cms_nppes" (
 "npi" text NOT NULL,
@@ -333,8 +336,9 @@ PRIMARY KEY ("npi")
 )
 ;
 
-\copy ref_cms_nppes FROM 'npi_nppes_data_r201610_cut.csv' delimiter ',' CSV HEADER; 
+\copy ref_cms_nppes FROM 'npi_nppes_data_r201610.csv' delimiter ',' CSV HEADER; 
 
+\echo 'Starting ref_cms_nppes_provider_address'
 DROP TABLE IF EXISTS cms_nppes_provider_address CASCADE;
 CREATE TABLE "cms_nppes_provider_address" (
 "npi" varchar(10) NOT NULL,
@@ -380,6 +384,7 @@ SELECT
 FROM 
 	ref_cms_nppes;
 
+\echo 'Starting ref_cms_nppes_provider_licenses'
 DROP TABLE IF EXISTS cms_nppes_provider_licenses CASCADE;
 CREATE TABLE "cms_nppes_provider_licenses" (
 "npi" varchar(10) NOT NULL,
@@ -404,6 +409,7 @@ FROM
 	ref_cms_nppes;	
 
 
+\echo 'Starting ref_cms_nppes_provider_taxonomy_group'
 DROP TABLE IF EXISTS cms_nppes_provider_taxonomy_group CASCADE;
 CREATE TABLE "cms_nppes_provider_taxonomy_group" (
 "npi" varchar(10) NOT NULL,
@@ -422,7 +428,7 @@ SELECT
 FROM
 	ref_cms_nppes;
 
-
+\echo 'Starting cms_nppes'
 DROP TABLE IF EXISTS cms_nppes CASCADE;
 CREATE TABLE "cms_nppes" (
 "npi" varchar(10) NOT NULL,
@@ -515,6 +521,7 @@ FROM
 	ref_cms_nppes;
 
 
+\echo 'Starting ref_cms_nppes_provider_other_identity'
 DROP TABLE IF EXISTS cms_nppes_provider_other_identity;
 CREATE TABLE "cms_nppes_provider_other_identity" (
 "npi" varchar(10) NOT NULL,
@@ -528,4 +535,13 @@ CONSTRAINT "fk_cms_nppes_provider_other_identity_cms_nppes_1" FOREIGN KEY ("npi"
 )
 ;
 
-
+INSERT INTO cms_nppes_provider_other_identity
+SELECT 
+	npi, 
+	cast(npi as int4), 
+	other_prov_id_1, 
+	other_prov_id_type_cd_1,
+	other_prov_id_state_1,
+	other_prov_id_issuer_1
+FROM 
+	ref_cms_nppes;
