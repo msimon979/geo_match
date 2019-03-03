@@ -113,7 +113,7 @@ def geo_api(address_list, update_value):
 		npi = address[0]
 		atc = address[1]
 	
-		r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyDfmIkdDyE4EMUw1uWMXxBUPv2beFlKlJg' % address)
+		r = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=' % address)
 		result, status = parse_result(r, npi, atc)
 		
 		if update_value == 'instant':
